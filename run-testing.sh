@@ -32,7 +32,7 @@ fi
 collection_url="https://api.getpostman.com/collections/$2?apikey=$1"
 environment_url="https://api.getpostman.com/environments/$3?apikey=$1"
 
-newman $collection_url --environment $environment_url --export newenv.json
+newman run $collection_url --environment $environment_url --export newenv.json
 
 # convert newenv for update env in postman
 cat newenv.json | jq -r '{ "environment": { "name": .name|tostring,
