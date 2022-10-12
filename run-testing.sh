@@ -15,15 +15,15 @@ if !hash curl 2>/dev/null; then
 fi
 
 # check parameter input
-if [[ -z "$1" ]]; then
+if [ -z "$1" ]; then
     echo 'No api key found. => ./run-testing.sh [API_KEY] [COLLECTION_ID] [ENVIRONMENT_ID]'
     exit 1
 fi
-if [[ -z "$2" ]]; then
+if [ -z "$2" ]; then
     echo 'No collection ID. => ./run-testing.sh [API_KEY] [COLLECTION_ID] [ENVIRONMENT_ID]'
     exit 1
 fi
-if [[ -z "$3" ]]; then
+if [ -z "$3" ]; then
     echo 'No environment ID. => ./run-testing.sh [API_KEY] [COLLECTION_ID] [ENVIRONMENT_ID]'
     exit 1
 fi
@@ -46,5 +46,3 @@ cat newenv.json | jq -r '{ "environment": { "name": .name|tostring,
 
 # sync variable to postman
 curl --location --request PUT $environment_url --header 'Content-Type: application/json' -d @updatedenv.json
-
-
