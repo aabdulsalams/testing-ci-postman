@@ -16,23 +16,23 @@ fi
 
 # check parameter input
 if [ -z "$1" ]; then
-    echo 'No api key found. => ./run-testing.sh [API_KEY] [COLLECTION_ID] [ENVIRONMENT_ID]'
+    echo 'No api key found. => ./run-testing.sh [API_KEY] [COLLECTION_ID] [ENVIRONMENT_ID] [STAGE_DIR] [BUILD_NUMBER]'
     exit 1
 fi
 if [ -z "$2" ]; then
-    echo 'No collection ID. => ./run-testing.sh [API_KEY] [COLLECTION_ID] [ENVIRONMENT_ID]'
+    echo 'No collection ID. => ./run-testing.sh [API_KEY] [COLLECTION_ID] [ENVIRONMENT_ID] [STAGE_DIR] [BUILD_NUMBER]'
     exit 1
 fi
 if [ -z "$3" ]; then
-    echo 'No environment ID. => ./run-testing.sh [API_KEY] [COLLECTION_ID] [ENVIRONMENT_ID]'
+    echo 'No environment ID. => ./run-testing.sh [API_KEY] [COLLECTION_ID] [ENVIRONMENT_ID] [STAGE_DIR] [BUILD_NUMBER]'
     exit 1
 fi
 
 # set url
 collection_url="https://api.getpostman.com/collections/$2?apikey=$1"
 environment_url="https://api.getpostman.com/environments/$3?apikey=$1"
-
-newman run $collection_url --environment $environment_url --export-environment newenv.json
+mkdir -p "$4" || true
+newman run $collection_url --environment $environment_url --export-environment newenv.json --reporter-htmlextra-export ./"$4"/report-"$5".html
 
 # convert newenv for update env in postman
 cat newenv.json | jq -r '{ "environment": { "name": .name|tostring,
