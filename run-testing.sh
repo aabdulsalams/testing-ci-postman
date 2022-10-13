@@ -31,7 +31,7 @@ fi
 # set url
 collection_url="https://api.getpostman.com/collections/$2?apikey=$1"
 environment_url="https://api.getpostman.com/environments/$3?apikey=$1"
-newman run $collection_url --environment $environment_url --export-environment newenv.json --reporter-htmlextra-export report-"$5".html
+newman run $collection_url --environment $environment_url --export-environment newenv.json -r htmlextra --reporter-htmlextra-export report-"$5".html
 
 # convert newenv for update env in postman
 cat newenv.json | jq -r '{ "environment": { "name": .name|tostring,
