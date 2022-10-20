@@ -44,4 +44,4 @@ cat newenv.json | jq -r '{ "environment": { "name": .name|tostring,
 ] } }' > updatedenv.json
 
 # sync variable to postman
-curl --location --request PUT $environment_url --header 'Content-Type: application/json' -d @updatedenv.json
+# curl --location --request PUT $environment_url --header 'Content-Type: application/json' -d @updatedenv.json
