@@ -33,7 +33,7 @@ fi
 collection_url="https://api.getpostman.com/collections/$2?apikey=$1"
 environment_url="https://api.getpostman.com/environments/$3?apikey=$1"
 newman run $collection_url --environment $environment_url --export-environment newenv.json --disable-unicode --disable-unicode -r htmlextra --reporter-htmlextra-export report-"$4".html
-ls -al
+echo "testing"
 hxnormalize -l 240 -x report-"$4".html 2>/dev/null | hxselect -s '\n' -c ".card-success > div:nth-child(1) > h1:nth-child(3)"
 
 # convert newenv for update env in postman
