@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 # check required tools
 if !hash newman 2>/dev/null; then
