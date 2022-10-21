@@ -34,9 +34,9 @@ environment_url="https://api.getpostman.com/environments/$3?apikey=$1"
 newman run $collection_url --environment $environment_url --export-environment newenv.json --disable-unicode --disable-unicode -r htmlextra --reporter-htmlextra-export report-"$4".html
 echo "testing"
 # .card-success > div:nth-child(1) > h1:nth-child(3)
-hxnormalize -l 240 -x report-"$4".html 2>/dev/null | hxselect -s '\n' -c "#pills-failed-tab > span" > test-summaries.log
-sleep 5
-cat test-summaries.log
+hxnormalize -l 240 -x report-"$4".html 2>/dev/null | hxselect -s '\n' -c "#pills-failed-tab > span" > failed-test-summaries.log
+hxnormalize -l 240 -x report-"$4".html 2>/dev/null | hxselect -s '\n' -c "#pills-skipped-tab > span" > skipped-test-summaries.log
+cat failed-test-summaries.log && cat skipped-test-summaries.log
 
 # convert newenv for update env in postman
 cat newenv.json | jq -r '{ "environment": { "name": .name|tostring,
